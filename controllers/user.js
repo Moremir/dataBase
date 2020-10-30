@@ -9,9 +9,9 @@ async function getUsers(req, res) {
 }
 
 async function getOneUser(req, res) {
+  console.log(req.day)
   try {
     const { id } = req.params;
-    console.log(req.newId);
     const user = await User.findById(id);
 
     if (!user) {
