@@ -9,7 +9,7 @@ const newsSchema = new Schema({
   title: {
     type: String,
     required: true,
-    // unique: true,
+    unique: true,
   },
   content: {
     type: String,
@@ -20,6 +20,10 @@ const newsSchema = new Schema({
   },
   date: {
     type: String,
+  },
+  viewCount: {
+    type: Number,
+    default: 0
   }
 });
 

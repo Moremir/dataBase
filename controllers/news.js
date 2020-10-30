@@ -2,7 +2,7 @@ const { News } = require ('../model/news')
 
 
 async function publishNews(req, res) {
-    const { authorName, title, content, comments } = req.body;
+    const { authorName, title, content, comments, viewCount } = req.body;
 
     if ( authorName === '' || title === '' || 
             content === '') {
@@ -16,6 +16,7 @@ async function publishNews(req, res) {
         title: title,
         content: content,
         comments: comments,
+        viewCount: viewCount,
         date: req.day
      });
 
@@ -28,6 +29,7 @@ async function publishNews(req, res) {
 async function getAllNews(req, res) {
     const allNews = await News.find(); //массив новостей
     
+    
     return res.status(200).json(allNews)
 }
 
@@ -36,6 +38,11 @@ async function getOneNews(req, res) {
         const { newsId } = req.params;
 
         const news = await News.findById(newsId);
+
+        news.viewCount++
+        await news.save()
+         console.log(news)
+
         return res.status(200).json({
             news: news
         })
